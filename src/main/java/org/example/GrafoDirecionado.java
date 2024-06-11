@@ -1,23 +1,17 @@
 package org.example;
 
-import java.util.LinkedList;
-import java.util.List;
-
 public class GrafoDirecionado {
-    private List<Integer>[] listaAdjacencia;
+    private boolean[][] matrizAdjacencia;
     private final int numeroDeVertices = 5;
 
     public GrafoDirecionado() {
-        listaAdjacencia = new LinkedList[numeroDeVertices];
-        for (int i = 0; i < numeroDeVertices; i++) {
-            listaAdjacencia[i] = new LinkedList<>();
-        }
+        matrizAdjacencia = new boolean[numeroDeVertices][numeroDeVertices];
     }
 
     public void adicionarAresta(int verticeOrigem, int verticeDestino) {
         if (verticeOrigem >= 0 && verticeOrigem < numeroDeVertices &&
                 verticeDestino >= 0 && verticeDestino < numeroDeVertices) {
-            listaAdjacencia[verticeOrigem].add(verticeDestino);
+            matrizAdjacencia[verticeOrigem][verticeDestino] = true;
         } else {
             System.out.println("Vertices inválidos.");
         }
@@ -26,22 +20,23 @@ public class GrafoDirecionado {
     public void removerAresta(int verticeOrigem, int verticeDestino) {
         if (verticeOrigem >= 0 && verticeOrigem < numeroDeVertices &&
                 verticeDestino >= 0 && verticeDestino < numeroDeVertices) {
-            listaAdjacencia[verticeOrigem].remove((Integer) verticeDestino);
+            matrizAdjacencia[verticeOrigem][verticeDestino] = false;
         } else {
             System.out.println("Vertices inválidos.");
         }
     }
 
     public void exibirGrafo() {
-        System.out.println("Listas de Adjacência do Grafo Direcionado:");
+        System.out.println("Matriz de Adjacência do Grafo Direcionado:");
         char vertice = 'A';
         for (int i = 0; i < numeroDeVertices; i++) {
             System.out.print((char)(vertice + i) + ": ");
-            for (Integer adj : listaAdjacencia[i]) {
-                System.out.print((char)(vertice + adj) + " ");
+            for (int j = 0; j < numeroDeVertices; j++) {
+                if (matrizAdjacencia[i][j]) {
+                    System.out.print((char)(vertice + j) + " ");
+                }
             }
             System.out.println();
         }
     }
 }
-
